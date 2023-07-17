@@ -6,14 +6,15 @@ class PortraitModeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    Size screenSize = MediaQuery.sizeOf(context);
+    return SingleChildScrollView(
       padding: const EdgeInsets.all(10.0),
       child: Column(
-        // mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const CircleAvatar(
-            radius: 200,
-            backgroundImage: NetworkImage(profileImage),
+          CircleAvatar(
+            backgroundColor: Colors.transparent,
+            radius: screenSize.width / 2,
+            backgroundImage: const NetworkImage(profileImage),
           ),
           const SizedBox(height: height),
           const Text(
@@ -28,23 +29,22 @@ class PortraitModeScreen extends StatelessWidget {
             "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content.",
           ),
           const SizedBox(height: height),
-          Expanded(
-            child: GridView.builder(
-              itemCount: 10,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-              ),
-              itemBuilder: (context, index) {
-                return Image.network(
-                  galleryImage,
-                  width: 50,
-                );
-                // return Text("data");
-              },
+          GridView.builder(
+            shrinkWrap: true,
+            itemCount: img.length,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              mainAxisSpacing: 5,
+              crossAxisSpacing: 5,
             ),
-          )
+            itemBuilder: (context, index) {
+              return Image.network(
+                img[index],
+                fit: BoxFit.fill,
+              );
+              // return Text("data");
+            },
+          ),
         ],
       ),
     );

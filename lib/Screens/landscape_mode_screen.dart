@@ -7,15 +7,19 @@ class LandscapeModeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    Size screenSize = MediaQuery.sizeOf(context);
+    return SingleChildScrollView(
       padding: const EdgeInsets.all(10.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const CircleAvatar(
-            radius: 150,
-            backgroundImage: NetworkImage(profileImage),
+           CircleAvatar(
+            radius: screenSize.width / 6,
+            backgroundColor: Colors.transparent,
+            backgroundImage: const NetworkImage(profileImage),
           ),
+          const SizedBox(width: height),
+
           Expanded(
             child: Column(
               children: [
@@ -31,22 +35,20 @@ class LandscapeModeScreen extends StatelessWidget {
                   "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content.",
                 ),
                 const SizedBox(height: height),
-                Expanded(
-                  child: GridView.builder(
-                    itemCount: 10,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10,
-                    ),
-                    itemBuilder: (context, index) {
-                      return Image.network(
-                        galleryImage,
-                        width: 50,
-                      );
-                      // return Text("data");
-                    },
+                GridView.builder(
+                  itemCount: img.length,
+                  shrinkWrap: true,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    mainAxisSpacing: 5,
+                    crossAxisSpacing: 5,
                   ),
+                  itemBuilder: (context, index) {
+                    return Image.network(
+                      img[index],
+                      fit: BoxFit.fill,
+                    );
+                  },
                 )
               ],
             ),
